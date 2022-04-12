@@ -8,9 +8,9 @@ function App() {
      <h1>App</h1>
      <Navbar />
      <Routes>
-      <Route path="/" element={<p>great</p>} exact/>
-      <Route path="/clothes" element={<p>great1</p>} exact/>
-      <Route path="/tech" element={<p>great2</p>} exact/>
+      <Route path="/" element={<p>great</p>} />
+      <Route path="/clothes" element={<p>great1</p>} />
+      <Route path="/tech" element={<p>great2</p>} />
      </Routes>
     </div>
   );

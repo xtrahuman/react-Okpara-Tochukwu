@@ -2,3 +2,40 @@ body {
   margin: 0;
 }
 
+.d-flex {
+ display: flex;
+}
+
+.navbar {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navs {
+  text-decoration: none;
+  gap: 20px;
+}
+
+ul.navs{
+  padding-left: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.currency-dropdown {
+  position: relative;
+}
+
+.currency {
+  position: absolute;
+  flex-direction: column;
+  gap: 20px;
+}
+
+ul.navs li a{
+  text-decoration: none;
+}
+
