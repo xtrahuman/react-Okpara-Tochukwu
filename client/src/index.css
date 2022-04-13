@@ -7,8 +7,13 @@ body {
 }
 
 .navbar {
+  justify-content: center;
+}
+
+.navbar-container {
   justify-content: space-between;
   align-items: center;
+  width: 80%;
 }
 
 .navs {
@@ -27,6 +32,12 @@ ul {
 
 .currency-dropdown {
   position: relative;
+  gap: 13px;
+}
+
+.currency-icons {
+  align-items: flex-end;
+  gap: 5px;
 }
 
 .currency {
@@ -37,5 +48,9 @@ ul {
 
 ul.navs li a{
   text-decoration: none;
+}
+
+.sym {
+  margin-right: 5px;
 }
 

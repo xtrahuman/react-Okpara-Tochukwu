@@ -1,41 +1,15 @@
 import React from 'react';
-import {Query} from '@apollo/client/react/components'
-import {gql} from "@apollo/client";
 import { NavLink } from 'react-router-dom';
 import logo from '../Images/a-logo.svg'
 import cartLogo from '../Images/cartlogo.svg'
 import { FaAngleDown } from 'react-icons/fa'
-
-const ALL_QUERY = gql`
-  query AllQuery{
-    categories{
-    name,
-    products{
-      id
-    }
-  }
-
-  currencies{
-    label,
-    symbol
-  }
-}
-`
-// const CURRENCIES_QUERY = gql`
-//   query CurrenciesQuery{
-//     currencies{
-//     label,
-//     symbol
-//   }
-// }
-// `
 
 class Navbar extends React.Component {
 constructor(props){
   super(props)
   this.state = {
     dropDisplay: false,
-    currency: '$'
+    currency: this.props.data.currencies[0].symbol
   }
 
   this.toggleDropdown = this.toggleDropdown.bind(this)
@@ -45,43 +19,35 @@ constructor(props){
   dropDisplay: !dropDisplay
 }))
 
-
 render (){
   const { dropDisplay, currency } = this.state
+  const { data, getNavName } = this.props
   console.log(dropDisplay)
-  return (
-    <Query query={ALL_QUERY}>
-    {({ loading, error, data }) => {
-        if (error) return <h1>Error...</h1>;
-        if (loading || !data) return <h1>Loading...</h1>
 
     return (
-    <nav className="d-flex navbar">
+    <nav className="navbar d-flex">
+    <div className="d-flex navbar-container">
     <ul className='d-flex navs'>
     {data.categories.map(({ name }) => (
     <li key={name}>
-      <NavLink to = {name === 'all' ? '/' : `/${name}`}>
+      <NavLink to = {name === 'all' ? '/' : `/${name}`} onClick={()=> getNavName(name)}>
         {name}
       </NavLink>
     </li>
   ))}
    </ul>
     <img src={logo} alt='logo' />
-    <div className="currency-dropdown">
-      <div className="d-flex" onClick = {this.toggleDropdown}>
+    <div className="currency-dropdown d-flex">
+      <div className="d-flex currency-icons" onClick = {this.toggleDropdown}>
       <span >{ currency }</span>
-      <span ><FaAngleDown/></span>
+      <span ><FaAngleDown style={{width: '10px', height: '10px'}}/></span>
       </div>
-     <ul className="d-flex currency" style= {{ display: dropDisplay ?  'flex' : 'none'}}>{data.currencies.map(({label, symbol}) => <li key={label} onClick = {()=>this.setState(({dropDisplay})=>({ dropDisplay: !dropDisplay,currency: symbol}))}>{label}</li>)}</ul>
+     <ul className="d-flex currency" style= {{ display: dropDisplay ?  'flex' : 'none'}}>{data.currencies.map(({label, symbol}) => <li key={label} onClick = {()=>this.setState(({dropDisplay})=>({ dropDisplay: !dropDisplay,currency: symbol}))}><span className='sym'>{symbol}</span>{label}</li>)}</ul>
+     <img src={cartLogo} alt = 'cart' />
      </div>
-    <img src={cartLogo} alt = 'cart' />
+     </div>
     </nav>
     )
-
-    }}
-</Query>
-  )
-
  
 }
  
